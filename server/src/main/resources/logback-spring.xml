@@ -1,0 +1,44 @@
+<configuration>
+
+    <!-- Define properties for log file and directory -->
+    <property name="LOG_FILE" value="nutro-delivery-log" />
+    <property name="LOG_DIR" value="${user.home}" />
+
+    <!-- File appender with rolling policy -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/${LOG_FILE}.log</file>
+        
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{yyyy/MM/dd}/${LOG_FILE}.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Console appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger configurations -->
+    <logger name="org.hibernate" level="ERROR" />
+    <logger name="org.springframework" level="ERROR" />
+    <logger name="org.springframework.transaction" level="ERROR" />
+    <logger name="org.springframework.security" level="ERROR" />
+    <logger name="org.springframework.web.servlet.mvc" level="ERROR" />
+
+    <!-- Root logger configuration -->
+    <root level="INFO">
+        <!-- Uncomment the next line to enable console logging -->
+        <!-- <appender-ref ref="STDOUT" /> -->
+        <appender-ref ref="FILE" />
+    </root>
+
+</configuration>

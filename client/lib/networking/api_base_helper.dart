@@ -126,7 +126,7 @@ class ApiBaseHelper {
     return responseJson;
   }
 
-  Future<dynamic> getToken(userName, password) async {
+  Future<dynamic> getToken(mobileNo) async {
     // debugPrint('Api Get, url $_baseUrl${AppConfig.oauthAPI}');
     Map<String, String> requestHeader = {
       'Content-Type': "application/x-www-form-urlencoded"
@@ -140,8 +140,7 @@ class ApiBaseHelper {
           headers: requestHeader,
           //encoding: Encoding.getByName("utf-8"),
           body: {
-            "username": userName,
-            "password": password,
+            "mobile_no": mobileNo,
             "client_id": "Nutro-mobile",
             "grant_type": "password",
             "client_secret": "K6GOHZlMIql3b0YGrX7AQUhY"
