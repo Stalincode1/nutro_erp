@@ -2,56 +2,47 @@ package com.nutro.nutro_delivery.common;
 
 public class ServerResponseModel {
 
-    private int statusCode;
-    private Object responseData;
-    private boolean error = false;
-    private String responseMessage;
-    private String additionalInfo = "";
+    private int status;
+    private Object data;
+    private String message;
+    private String devMessage;
 
-    public int getStatusCode() {
-        return statusCode;
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getDevMessage() {
+        return devMessage;
+    }
+
+    public void setDevMessage(String devMessage) {
+        this.devMessage = devMessage;
     }
 
     @Override
     public String toString() {
-        return "ServerResponseModel [statusCode=" + statusCode + ", responseData=" + responseData + ", error=" + error
-                + ", responseMessage=" + responseMessage + ", additionalInfo=" + additionalInfo + "]";
-    }
-
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public Object getResponseData() {
-        return responseData;
-    }
-
-    public void setResponseData(Object responseData) {
-        this.responseData = responseData;
-    }
-
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
-
-    public String getResponseMessage() {
-        return responseMessage;
-    }
-
-    public void setResponseMessage(String responseMessage) {
-        this.responseMessage = responseMessage;
-    }
-
-    public String getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
+        return "ServerResponseModel [status=" + status + ", data=" + data + ", message=" + message + ", devMessage="
+                + devMessage + "]";
     }
 
 }
