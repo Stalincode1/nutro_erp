@@ -1,38 +1,33 @@
-import 'package:client/constants/app_colors.dart';
-import 'package:client/constants/ui_routes.dart';
-import 'package:client/screens/user/wish_list_screen.dart';
+import 'package:client/screens/widgets/custom_bottom_nav_bar.dart';
+import 'package:client/screens/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import '../../constants/ui_routes.dart';
 import '../widgets/custom_horizaontal_divider.dart';
 import '../widgets/custom_list_tile.dart';
 
 class UserDashboard extends StatefulWidget {
- static String routeName = UiScreenRoutes.userDashBoard;
   const UserDashboard({super.key});
+  static String routeName = UiScreenRoutes.userDashBoard;
 
   @override
   State<UserDashboard> createState() => _UserDashboardState();
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  // final CarouselController _carouselController = CarouselController();
 
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+
     final screenHeight = MediaQuery.of(context).size.height;
 
-    int _currentIndex = 0;
+    int _currentIndex=0;
 
-    final List imglist = [
+    final List imglist=[
+      'https://m.media-amazon.com/images/I/71oR9w5AjbL.jpg',
+      'https://images.immediate.co.uk/production/volatile/sites/30/2024/03/Nuts-2def52f.jpg?quality=90&resize=440,400',
+      'https://media.istockphoto.com/id/610957954/photo/mixed-nuts-shelled.jpg?s=612x612&w=0&k=20&c=Bg43e5FkTJnOPQwwvy5Qb38H-kShEMGBR3TxzLi3vT8=',
       'https://media.istockphoto.com/id/610957954/photo/mixed-nuts-shelled.jpg?s=612x612&w=0&k=20&c=Bg43e5FkTJnOPQwwvy5Qb38H-kShEMGBR3TxzLi3vT8=',
     ];
 
@@ -43,87 +38,108 @@ class _UserDashboardState extends State<UserDashboard> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(25)),
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(25)
+              ),
               child: Icon(
                 Icons.ac_unit,
-                size: 24,
+                size: 24,),
               ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
+            SizedBox(width: 5,),
             Text('Nutro')
           ],
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Search Bar
-              Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(left: 15, right: 8),
-                      width: screenWidth * 0.8,
-                      height: screenHeight * 0.05,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          border: Border.all(color: Colors.black38),
-                          color: Colors.grey.shade200),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          suffixIcon: Icon(Icons.search),
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          hintText: 'Search',
-                          // contentPadding: EdgeInsets.only(left: 5,top:5.5)
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, WishList.routeName);
-                      },
-                      icon: const Icon(Icons.favorite_border),
-                    ),
-                  ],
-                ),
-              ),
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
 
-              Column(
+
+            Center(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+
+                  //Search Bar
+                  Padding(
+                    padding:EdgeInsets.only(top: 15,bottom: 15),
+                    child: CustomSearchBar(),
+                  ),
+
+                  // Wishlist Button
+                  IconButton(
+                      onPressed: (){},
+                      icon:const Icon(Icons.favorite_border),
+                  ),
+                ],
+              ),
+            ),
+
+
+
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                image: DecorationImage(
+                    opacity: 0.7,
+                    image: AssetImage(
+                        'assets/images/back_ground.png',
+                    ),
+                  fit: BoxFit.cover
+                ),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(30),topRight:Radius.circular(30))
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+                  SizedBox(height: 25,),
                   //Carousel Slider
                   CarouselSlider(
-                      items: imglist
-                          .map((item) => Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                margin: EdgeInsets.symmetric(horizontal: 8),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: Image.network(item)),
-                              ))
-                          .toList(),
+                      items: imglist.map((item)=>Container(
+                        padding: EdgeInsets.only(top: 10,bottom: 10),
+                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        child:Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              border: Border.all(
+                                  color: Colors.grey,
+                              ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3), // Shadow color
+                                offset: Offset(1, 2), // Shadow offset
+                                blurRadius: 8, // Shadow blur radius
+                                spreadRadius: 2, // Shadow spread radius
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(25),
+                            child:  Image.network(item)),
+                        ),
+                         )).toList(),
+
                       options: CarouselOptions(
-                          initialPage: 0,
-                          aspectRatio: 16 / 9,
-                          autoPlay: true,
-                          autoPlayAnimationDuration: const Duration(seconds: 2),
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _currentIndex = index;
-                            });
-                          })),
+                        initialPage: 0,
+                        aspectRatio: 16/9,
+                        viewportFraction: 1,
+                        autoPlay: true,
+                        autoPlayAnimationDuration: const Duration(seconds: 2),
+                        onPageChanged: (index,reason){
+                          setState(() {
+                            _currentIndex=index;
+                          });
+                        }
+                      )),
+
 
                   //Today Deals ListView
                   const CustomHorizaontalDivider(title: 'Today Deals'),
                   Container(
-                    height: screenHeight * 0.20,
+                    height: screenHeight*0.20,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -140,7 +156,7 @@ class _UserDashboardState extends State<UserDashboard> {
                   //New Products ListView
                   const CustomHorizaontalDivider(title: 'New Products'),
                   Container(
-                    height: screenHeight * 0.20,
+                    height: screenHeight*0.20,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -157,11 +173,11 @@ class _UserDashboardState extends State<UserDashboard> {
                   //Mostly Liked Products GridView
                   const CustomHorizaontalDivider(title: 'Mostly liked'),
                   Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    height: screenHeight * 0.455,
+                    padding: const EdgeInsets.only(left: 30,right: 30),
+                    height: screenHeight*0.40,
                     child: GridView.count(
                       primary: false,
-                      crossAxisSpacing: 15,
+                      crossAxisSpacing:15,
                       mainAxisSpacing: 15,
                       crossAxisCount: 2,
                       shrinkWrap: true,
@@ -179,7 +195,7 @@ class _UserDashboardState extends State<UserDashboard> {
                   //Wishlist ListView
                   const CustomHorizaontalDivider(title: 'Wishlist'),
                   Container(
-                    height: screenHeight * 0.20,
+                    height: screenHeight*0.20,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -192,76 +208,21 @@ class _UserDashboardState extends State<UserDashboard> {
                       ],
                     ),
                   ),
-                ],
-              )
-            ]),
-      ),
 
-      //Bottom Navigation Bar
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-            border: Border.all(color: Colors.black38)),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-          child: BottomAppBar(
-            color: Colors.white,
-            height: screenHeight * 0.070,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: Icon(Icons.home_outlined),
-                  color: _selectedIndex == 0 ? AppColors.primary : Colors.black,
-                  onPressed: () {
-                    _onItemTapped(0);
-                  },
-                ),
-                IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: Icon(Icons.explore_outlined),
-                  color: _selectedIndex == 1 ? AppColors.primary : Colors.black,
-                  onPressed: () {
-                    _onItemTapped(1);
-                  },
-                ),
-                IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: Icon(Icons.dashboard_outlined),
-                  color: _selectedIndex == 2 ? AppColors.primary : Colors.black,
-                  onPressed: () {
-                    _onItemTapped(2);
-                  },
-                ),
-                IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: Icon(Icons.shopping_cart_outlined),
-                  color: _selectedIndex == 3 ? AppColors.primary : Colors.black,
-                  onPressed: () {
-                    _onItemTapped(3);
-                  },
-                ),
-                IconButton(
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  icon: Icon(Icons.person_outlined),
-                  color: _selectedIndex == 4 ? AppColors.primary : Colors.black,
-                  onPressed: () {
-                    _onItemTapped(4);
-                  },
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            )
+
+          ]
         ),
       ),
+
+
+
+      //Bottom Navigation Bar
+      bottomNavigationBar: CustomBottomNavBar()
+
     );
+
   }
 }
