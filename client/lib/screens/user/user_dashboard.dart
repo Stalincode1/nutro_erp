@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../widgets/custom_horizaontal_divider.dart';
 import '../widgets/custom_list_tile.dart';
+import '../widgets/custom_search_bar.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
