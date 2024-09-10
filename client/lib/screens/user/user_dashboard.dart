@@ -1,4 +1,3 @@
-import 'package:client/constants/app_colors.dart';
 import 'package:client/screens/widgets/custom_bottom_nav_bar.dart';
 import 'package:client/screens/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ class _UserDashboardState extends State<UserDashboard> {
   @override
   Widget build(BuildContext context) {
 
-    final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
     int _currentIndex=0;
