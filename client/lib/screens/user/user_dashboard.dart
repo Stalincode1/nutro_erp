@@ -2,12 +2,13 @@ import 'package:client/screens/widgets/custom_bottom_nav_bar.dart';
 import 'package:client/screens/widgets/custom_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import '../../constants/ui_routes.dart';
 import '../widgets/custom_horizaontal_divider.dart';
 import '../widgets/custom_list_tile.dart';
-import '../widgets/custom_search_bar.dart';
 
 class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
+  static String routeName = UiScreenRoutes.userDashBoard;
 
   @override
   State<UserDashboard> createState() => _UserDashboardState();

@@ -1,8 +1,9 @@
-import 'package:client/screens/user/login_screen.dart';
+import 'package:client/routing/routes.dart';
+import 'package:client/screens/user/user_dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
