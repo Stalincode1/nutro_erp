@@ -1,9 +1,10 @@
-import 'package:client/constants/app_colors.dart';
-import 'package:client/constants/ui_routes.dart';
-import 'package:client/screens/widgets/image_error_handle.dart';
-import 'package:client/screens/widgets/user_order_traker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:netro/constants/app_colors.dart';
+import 'package:netro/constants/ui_routes.dart';
+import 'package:netro/screens/widgets/image_error_handle.dart';
+import 'package:netro/screens/widgets/user_order_traker.dart';
 
 class OrderPreviewScreen extends StatefulWidget {
   static String routeName = UiScreenRoutes.userOrderPreviewScreen;

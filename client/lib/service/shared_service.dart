@@ -1,6 +1,5 @@
-import 'package:client/config/navigate_helper.dart';
-import 'package:client/model/token_model.dart';
 import 'package:flutter/material.dart';
+import 'package:netro/model/token_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final Future<SharedPreferences> _storage = SharedPreferences.getInstance();

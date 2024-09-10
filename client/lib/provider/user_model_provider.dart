@@ -1,4 +1,3 @@
-import 'package:client/service/shared_service.dart';
 import 'package:flutter/material.dart';
 
 class UserModelProvider extends ChangeNotifier {
