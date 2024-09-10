@@ -14,13 +14,15 @@ class CustomHorizaontalDivider extends StatelessWidget {
       children: [
         SizedBox(
             width: screenWidth*0.30,
-            child: const Divider(thickness: 1.5,)),
+            child: const Divider(thickness: 3,)),
         const SizedBox(width: 5,),
-        Text(title),
+        Text(title,style: TextStyle(
+          fontWeight: FontWeight.w600
+        ),),
         const SizedBox(width: 5,),
         SizedBox(
             width: screenWidth*0.30,
-            child: const Divider(thickness: 1.5,))
+            child: const Divider(thickness: 3,))
       ],
     );
   }

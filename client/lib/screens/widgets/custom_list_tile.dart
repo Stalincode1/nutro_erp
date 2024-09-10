@@ -20,6 +20,14 @@ class CustomListTile extends StatelessWidget {
             width: screenWidth*0.30,
             height: screenHeight*0.17,
             decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black45,
+                    offset: Offset(1, 2),
+                    blurRadius: 3,
+                    spreadRadius: 0.5
+                  )
+                ],
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(7),
                 border: Border.all(color: Colors.black12)
