@@ -3,4 +3,6 @@ class UiScreenRoutes {
   static const String login = "/login";
   static const String userDashBoard = "/user-dashboard";
   static const String wishlistScreen = "/wishlist-screen";
+  static const String userOrderScreen = "/user-order-screen";
+  static const String userOrderPreviewScreen = "/user-order-preview-screen";
 }
