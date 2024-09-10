@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netro/routing/routes.dart';
-import 'package:netro/screens/user/user_orders_screen.dart';
+import 'package:client/routing/routes.dart';
+import 'package:client/screens/user/user_orders_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Nutro',
+      title: 'client',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xfffee6a4)),
         useMaterial3: true,

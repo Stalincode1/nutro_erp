@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netro/constants/app_colors.dart';
-import 'package:netro/screens/widgets/image_error_handle.dart';
+import 'package:client/constants/app_colors.dart';
+import 'package:client/screens/widgets/image_error_handle.dart';
 
 class WishListProductView extends StatefulWidget {
   List? dataList;

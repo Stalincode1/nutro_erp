@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:netro/model/common_response_model.dart';
-import 'package:netro/model/token_model.dart';
-import 'package:netro/networking/api_base_helper.dart';
-import 'package:netro/service/shared_service.dart';
+import 'package:client/model/common_response_model.dart';
+import 'package:client/model/token_model.dart';
+import 'package:client/networking/api_base_helper.dart';
+import 'package:client/service/shared_service.dart';
 
 class OAuthService {
   final ApiBaseHelper _helper = ApiBaseHelper();

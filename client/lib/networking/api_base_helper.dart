@@ -5,11 +5,12 @@ import 'dart:typed_data';
 import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:netro/config/app_config.dart';
-import 'package:netro/model/common_response_model.dart';
-import 'package:netro/model/token_model.dart';
-import 'package:netro/networking/api_exception.dart';
-import 'package:netro/service/shared_service.dart';
+import 'package:client/config/app_config.dart';
+import 'package:client/model/common_response_model.dart';
+import 'package:client/model/token_model.dart';
+import 'package:client/networking/api_exception.dart';
+import 'package:client/service/shared_service.dart';
+
 
 class ApiBaseHelper {
   final String _baseUrl = AppConfig.baseUrl;
@@ -140,7 +141,7 @@ class ApiBaseHelper {
           //encoding: Encoding.getByName("utf-8"),
           body: {
             "mobile_no": mobileNo,
-            "client_id": "Nutro-mobile",
+            "client_id": "client-mobile",
             "grant_type": "password",
             "client_secret": "K6GOHZlMIql3b0YGrX7AQUhY"
           }).timeout(timeout, onTimeout: commonTimeReposne);
