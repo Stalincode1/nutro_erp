@@ -1,12 +1,16 @@
+import 'package:client/routing/routes.dart';
 import 'package:client/screens/user/login_screen.dart';
+import 'package:client/screens/user/user_dashboard.dart';
+import 'package:client/screens/user/wish_list_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
+  String defaultRoute = UserDashboard.routeName;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +19,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xfffee6a4)),
         useMaterial3: true,
       ),
-      home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
+      initialRoute: defaultRoute,
+      routes: routes,
     );
   }
 }
