@@ -1,7 +1,9 @@
+import 'package:client/constants/ui_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
+  static String routeName = UiScreenRoutes.login;
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -10,9 +12,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController mobileNoController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void login (){
-    
-  }
+  void login() {}
 
   @override
   Widget build(BuildContext context) {
