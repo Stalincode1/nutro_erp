@@ -11,7 +11,6 @@ import 'package:client/model/token_model.dart';
 import 'package:client/networking/api_exception.dart';
 import 'package:client/service/shared_service.dart';
 
-
 class ApiBaseHelper {
   final String _baseUrl = AppConfig.baseUrl;
   final Duration timeout = const Duration(seconds: 20);
@@ -139,12 +138,7 @@ class ApiBaseHelper {
           ),
           headers: requestHeader,
           //encoding: Encoding.getByName("utf-8"),
-          body: {
-            "mobile_no": mobileNo,
-            "client_id": "client-mobile",
-            "grant_type": "password",
-            "client_secret": "K6GOHZlMIql3b0YGrX7AQUhY"
-          }).timeout(timeout, onTimeout: commonTimeReposne);
+          body: {}).timeout(timeout, onTimeout: commonTimeReposne);
       responseJson = _returnResponse(response);
     } on SocketException {
       debugPrint('No net');
@@ -228,19 +222,19 @@ class ApiBaseHelper {
   Future<dynamic> postWithoutToken(String url, dynamic body) async {
     debugPrint('Api Post, url $url');
     Map<String, String> requestHeader = {'Content-Type': 'application/json'};
-    //   Map<String, String> requestHeader = {};
-    //var jsonBody = jsonEncode(body);
     dynamic responseJson;
+
     try {
+      String jsonBody = body is Map ? jsonEncode(body) : body;
+
       final response = await http
           .post(
-            Uri.parse(
-              '$_baseUrl$url',
-            ),
+            Uri.parse('$_baseUrl$url'),
             headers: requestHeader,
-            body: body,
+            body: jsonBody,
           )
           .timeout(timeout, onTimeout: commonTimeReposne);
+
       responseJson = _returnResponse(response);
     } on SocketException {
       debugPrint('No net');
@@ -249,6 +243,7 @@ class ApiBaseHelper {
       debugPrint('$error$s');
       return internalServerError("$error");
     }
+
     debugPrint('api post.');
     return responseJson;
   }

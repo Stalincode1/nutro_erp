@@ -1,4 +1,7 @@
 import 'package:client/constants/ui_routes.dart';
+import 'package:client/model/common_response_model.dart';
+import 'package:client/screens/user/otp_verify.dart';
+import 'package:client/service/oauth_login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,7 +15,30 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController mobileNoController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void login() {}
+  final OAuthService service = OAuthService();
+
+  void login() async {
+    try {
+      CommonResponseModel? response =
+          await service.login(mobileNoController.text);
+
+      if (response != null && response.status == 200) {
+        // Extract OTP and phone number from the response
+        String otp = response.data?['otp'] ?? '';
+        String phoneNumber = response.data?['phoneNumber'] ?? '';
+
+        Navigator.pushNamed(
+          context,
+          OtpVerifyScreen.routeName,
+          arguments: {'otp': otp, 'phoneNumber': phoneNumber},
+        );
+      } else {
+        debugPrint("Login failed: No response");
+      }
+    } catch (e) {
+      debugPrint("Exception during login: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: () {
                                 if (_formKey.currentState?.validate() ??
                                     false) {
-                                  // Handle login action
+                                  login();
                                 }
                               },
                               child: Text("Login"),

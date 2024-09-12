@@ -2,6 +2,7 @@ package com.nutro.nutro_delivery.controllers;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.nutro.nutro_delivery.common.ServerResponseModel;
 import com.nutro.nutro_delivery.security.JwtUtil;
 import com.nutro.nutro_delivery.service.IOtpService;
 
@@ -23,14 +25,27 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/generate-otp")
-    public ResponseEntity<?> generateOtp(@RequestBody Map<String, String> request) {
+    public ResponseEntity<ServerResponseModel> generateOtp(@RequestBody Map<String, String> request) {
         String phoneNumber = request.get("phoneNumber");
         if (phoneNumber == null || phoneNumber.isEmpty()) {
-            return ResponseEntity.badRequest().body("Phone number is required");
+            ServerResponseModel res = new ServerResponseModel();
+            res.setStatus(HttpStatus.BAD_REQUEST.value());
+            res.setMessage("Phone Number Can't Be Empty");
+            return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
         }
+
         String otp = otpService.generateOtp(phoneNumber);
-        // TODO: Implement sending OTP via SMS or Email
-        return ResponseEntity.ok("OTP has been sent to your phone.");
+
+        java.util.Map<String, Object> responseData = new java.util.HashMap<>();
+        responseData.put("otp", otp);
+        responseData.put("phoneNumber", phoneNumber);
+
+        ServerResponseModel res = new ServerResponseModel();
+        res.setStatus(HttpStatus.OK.value());
+        res.setMessage("Successfully OTP Sent");
+        res.setData(responseData); // Set the Map as data
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @PostMapping("/verify-otp")
