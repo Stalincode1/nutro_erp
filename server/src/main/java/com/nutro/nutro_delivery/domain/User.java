@@ -15,7 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = true)
     private String name;
 
     @Column(name = "phone_no")
@@ -25,7 +25,7 @@ public class User {
     private String email;
 
     @Column(name = "isadmin", columnDefinition = "TINYINT(1)")
-    private Boolean isAdmin;
+    private String isAdmin;
 
     @Column(name = "gender")
     private String gender;
@@ -62,20 +62,20 @@ public class User {
         this.email = email;
     }
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
 }

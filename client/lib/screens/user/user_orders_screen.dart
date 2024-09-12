@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:client/constants/app_colors.dart';
 import 'package:client/constants/ui_routes.dart';
 import 'package:client/screens/user/user_order_preview_screen.dart';
 import 'package:client/screens/widgets/image_error_handle.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class UserOrderScreen extends StatefulWidget {
   static String routeName = UiScreenRoutes.userOrderScreen;

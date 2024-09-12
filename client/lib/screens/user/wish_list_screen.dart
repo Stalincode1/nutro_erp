@@ -1,7 +1,7 @@
-import 'package:client/constants/ui_routes.dart';
-import 'package:client/screens/widgets/wish_list_product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:client/constants/ui_routes.dart';
+import 'package:client/screens/widgets/wish_list_product_view.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WishList extends StatefulWidget {

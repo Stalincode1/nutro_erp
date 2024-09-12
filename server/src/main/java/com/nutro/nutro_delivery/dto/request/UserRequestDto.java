@@ -5,7 +5,7 @@ public class UserRequestDto {
     private String name;
     private String phoneNo;
     private String email;
-    private Boolean isAdmin;
+    private String isAdmin;
     private String gender;
 
     public Long getId() {
@@ -40,26 +40,26 @@ public class UserRequestDto {
         this.email = email;
     }
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    @Override
-    public String toString() {
-        return "UserRequestDto [id=" + id + ", name=" + name + ", phoneNo=" + phoneNo + ", email=" + email
-                + ", isAdmin=" + isAdmin + ", gender=" + gender + "]";
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRequestDto [id=" + id + ", name=" + name + ", phoneNo=" + phoneNo + ", email=" + email
+                + ", isAdmin=" + isAdmin + ", gender=" + gender + "]";
     }
 
 }
