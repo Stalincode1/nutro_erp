@@ -6,4 +6,5 @@ class UiScreenRoutes {
   static const String wishlistScreen = "/wishlist-screen";
   static const String userOrderScreen = "/user-order-screen";
   static const String userOrderPreviewScreen = "/user-order-preview-screen";
+  static const String categories = "/categories-screen";
 }
