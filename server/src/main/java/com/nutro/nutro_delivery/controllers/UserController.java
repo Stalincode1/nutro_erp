@@ -15,9 +15,6 @@ import com.nutro.nutro_delivery.repository.UserRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.*;
-import java.time.LocalDateTime;
-
 @RestController
 @RequestMapping(value = "users")
 public class UserController {
