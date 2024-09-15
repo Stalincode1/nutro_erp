@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:client/constants/app_colors.dart';
 import 'package:client/screens/user/product_process_screen.dart';
 import 'package:flutter/cupertino.dart';

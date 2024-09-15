@@ -11,7 +11,12 @@ import 'package:client/screens/user/user_order_preview_screen.dart';
 import 'package:client/screens/user/user_orders_screen.dart';
 import 'package:client/screens/user/wish_list_screen.dart';
 
+import '../screens/user/home_screen.dart';
+
 final Map<String, WidgetBuilder> routes = {
+  //LoginScreen.routeName: (context) => const LoginScreen();
+  UserDashboard.routeName : (context) => const UserDashboard(),
+  HomePageScreen.routeName:(context)=>HomePageScreen(),
   SplashScreen.routeName: (context) => const SplashScreen(),
   UserDashboard.routeName: (context) => const UserDashboard(),
   ExploreScreen.routeName: (context) => const ExploreScreen(),
