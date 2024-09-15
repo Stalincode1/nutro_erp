@@ -26,12 +26,15 @@ public class UserServiceImpl implements IUserService {
         } else {
             user = userOpt;
         }
-
-        // String otp = otpService.generateOtp();
-        // user.setOtp(otp);
-        // userRepository.save(user);
-
-        // otpService.sendOtp(phoneNumber, otp);
         return "OK";
+    }
+
+    @Override
+    public User getUserByPhoneNumber(String phoneNumber) {
+        User user = userRepository.findByPhoneNo(phoneNumber);
+        if (user == null) {
+            return null;
+        }
+        return user;
     }
 }

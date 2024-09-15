@@ -1,7 +1,7 @@
 package com.nutro.nutro_delivery.controllers;
 
-import java.util.Collections;
 import java.util.Map;
+import java.util.UUID;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.nutro.nutro_delivery.common.ServerResponseModel;
+import com.nutro.nutro_delivery.domain.User;
+import com.nutro.nutro_delivery.dto.response.TokenModel;
 import com.nutro.nutro_delivery.security.JwtUtil;
 import com.nutro.nutro_delivery.service.IOtpService;
+import com.nutro.nutro_delivery.service.IUserService;
 
 @RestController
 @RequestMapping("/auth")
@@ -23,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private IUserService userService;
 
     @PostMapping("/generate-otp")
     public ResponseEntity<ServerResponseModel> generateOtp(@RequestBody Map<String, String> request) {
@@ -55,9 +61,19 @@ public class AuthController {
 
         if (otpService.verifyOtp(phoneNumber, otp)) {
             String jwtToken = jwtUtil.generateToken(phoneNumber);
-            return ResponseEntity.ok(Collections.singletonMap("token", jwtToken));
+            User user = userService.getUserByPhoneNumber(phoneNumber);
+
+            Map<String, Object> response = new HashMap<>();
+            long expiresIn = 3600 * 24 * 7;
+            TokenModel tokenModel = new TokenModel(jwtToken, expiresIn, UUID.randomUUID().toString());
+
+            response.put("token", tokenModel);
+            response.put("user", user);
+
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid OTP");
         }
     }
+
 }

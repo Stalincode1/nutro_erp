@@ -1,7 +1,8 @@
+import 'package:client/constants/ui_routes.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
-  static const routeName = '/dashboard';
+  static String routeName = UiScreenRoutes.adminDashbord;
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }

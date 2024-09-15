@@ -22,15 +22,13 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection
                 .authorizeHttpRequests((requests) -> requests
-                        // Allow public access to the product-related API endpoints
-//                        .requestMatchers("/api/products/**").permitAll()
-                        // Allow public access to authentication-related endpoints
                         .requestMatchers("/auth/**").permitAll()
                         // Secure other endpoints
                         .anyRequest().authenticated())
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session management
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT
+                                                                                                         // filter
 
         return http.build();
     }

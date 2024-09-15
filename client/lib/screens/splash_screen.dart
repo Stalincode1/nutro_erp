@@ -1,14 +1,14 @@
 import 'package:client/constants/ui_routes.dart';
 import 'package:client/model/user_model.dart';
+import 'package:client/screens/admin/dashboard_page.dart';
 import 'package:client/screens/user/login_screen.dart';
 import 'package:client/screens/user/user_dashboard.dart';
-import 'package:client/screens/user/user_orders_screen.dart';
 import 'package:client/service/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
-  static String routeName = UiScreenRoutes.splash;
+  static String routeName = UiScreenRoutes.spalsh;
   const SplashScreen({super.key});
 
   @override
@@ -20,7 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _navigateToNextScreen();
-    //_checkUserRole();
   }
 
   void _navigateToNextScreen() async {
@@ -37,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (isAdmin == 0) {
         Navigator.pushReplacementNamed(context, UserDashboard.routeName);
       } else {
-        Navigator.pushReplacementNamed(context, UserOrderScreen.routeName);
+        Navigator.pushReplacementNamed(context, DashboardPage.routeName);
       }
     } else {
       Navigator.pushReplacementNamed(context, LoginScreen.routeName);

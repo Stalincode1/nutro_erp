@@ -40,7 +40,7 @@ class _WishListProductViewState extends State<WishListProductView> {
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(5),
-                      topRight: Radius.circular(5),
+                      topRight: Radius.circular(5) ,
                     ),
                     child: Image.network(
                       'https://images.pexels.com/photos/18876242/pexels-photo-18876242/free-photo-of-closeup-of-cashew-nuts-on-a-table.jpeg',

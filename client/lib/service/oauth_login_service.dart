@@ -1,9 +1,7 @@
 import 'package:client/config/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:client/model/common_response_model.dart';
-import 'package:client/model/token_model.dart';
 import 'package:client/networking/api_base_helper.dart';
-import 'package:client/service/shared_service.dart';
 
 class OAuthService {
   final ApiBaseHelper _helper = ApiBaseHelper();
@@ -22,22 +20,25 @@ class OAuthService {
     }
   }
 
-  Future<CommonResponseModel?> verifyOtp(mobileNo) async {
+  Future<CommonResponseModel?> verifyOtp(String mobileNo, String otp) async {
     String returnError = "";
     try {
-      Map<String, dynamic>? response = await _helper.getToken(mobileNo);
-      debugPrint("$response");
+      Map<String, dynamic> body = {"phoneNumber": mobileNo, "otp": otp};
+      Map<String, dynamic>? response = await _helper.postWithoutToken(
+          "${AppConfig.oauthAPI}/verify-otp", body);
+
+      debugPrint("Response: $response");
       if (response != null && !response.containsKey("error_description")) {
-        TokenModel tokenModel = TokenModel.fromMap(response);
-        await SharedService.setToken(tokenModel);
-        // CommonResponseModel? user = await _userService.getCurrentUser();
-        // return user;
+        return CommonResponseModel(
+            data: response,
+            error: false,
+            message: "OTP verification successful.");
       } else if (response != null) {
         returnError = response["error_description"];
       }
     } catch (error, st) {
-      debugPrint("Error while OAuthService:: $error::StackTrace::$st");
-      returnError = "$error";
+      debugPrint("Error in OAuthService: $error:: StackTrace: $st");
+      returnError = error.toString();
     }
     return CommonResponseModel(data: null, error: true, message: returnError);
   }

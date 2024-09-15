@@ -1,3 +1,6 @@
+import 'package:client/constants/ui_routes.dart';
+import 'package:client/screens/user/explore_screen.dart';
+import 'package:client/screens/user/user_dashboard.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
@@ -49,6 +52,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 color: _selectedIndex == 0 ? AppColors.primary: Colors.black,
                 onPressed: (){
                   _onItemTapped(0);
+                  Navigator.pushReplacementNamed(
+                      context, UserDashboard.routeName);
                 },
               ),
               IconButton(
@@ -58,6 +63,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                 color: _selectedIndex == 1 ? AppColors.primary : Colors.black,
                 onPressed: (){
                   _onItemTapped(1);
+                  Navigator.pushReplacementNamed(
+                      context, ExploreScreen.routeName);
                 },
               ),
               IconButton(
