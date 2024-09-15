@@ -1,6 +1,15 @@
 import 'package:client/constants/ui_routes.dart';
+import 'package:client/model/common_response_model.dart';
+import 'package:client/model/token_model.dart';
+import 'package:client/model/user_model.dart';
+import 'package:client/screens/admin/dashboard_page.dart';
+import 'package:client/screens/user/user_dashboard.dart';
+import 'package:client/service/oauth_login_service.dart';
+import 'package:client/service/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/style.dart';
 
 // ignore: must_be_immutable
 class OtpVerifyScreen extends StatefulWidget {
@@ -20,6 +29,36 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late String phoneNo;
   late String otp;
+
+  final OAuthService _oAuthService = OAuthService();
+
+  void verifyOtp(String userotp) async {
+    try {
+      CommonResponseModel? response =
+          await _oAuthService.verifyOtp(phoneNo, userotp);
+
+      if (response != null && response.error == false) {
+        // Assuming the response contains the token and user data
+        Map<String, dynamic> responseData =
+            response.data as Map<String, dynamic>;
+        TokenModel token = TokenModel.fromMap(responseData['token']);
+        await SharedService.setToken(token);
+        UserModel user = UserModel.fromMap(responseData['user']);
+        await SharedService.setUserData(user);
+        int? isAdmin = int.tryParse(user.isAdmin ?? '0') ?? 0;
+
+        if (isAdmin == 0) {
+          Navigator.pushReplacementNamed(context, UserDashboard.routeName);
+        } else {
+          Navigator.pushReplacementNamed(context, DashboardPage.routeName);
+        }
+      } else {
+        debugPrint("OTP verification failed: ${response?.message}");
+      }
+    } catch (e) {
+      debugPrint("Otp Error: $e");
+    }
+  }
 
   @override
   void didChangeDependencies() {
@@ -73,15 +112,29 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                       ),
                       const SizedBox(height: 20),
                       Center(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              // Handle login action
-                            }
-                          },
-                          child: const Text("Login"),
+                          child: OTPTextField(
+                        length: 4,
+                        width: MediaQuery.of(context).size.width,
+                        fieldWidth: 40,
+                        style: const TextStyle(fontSize: 17),
+                        textFieldAlignment: MainAxisAlignment.spaceEvenly,
+                        keyboardType: TextInputType.number,
+                        fieldStyle: FieldStyle.underline,
+                        otpFieldStyle: OtpFieldStyle(
+                          borderColor: Colors.yellow,
                         ),
-                      ),
+                        onChanged: (pin) {
+                          if (pin != null) {
+                            print("Changed: " + pin);
+                          } else {
+                            print("Pin is null");
+                          }
+                        },
+                        onCompleted: (pin) {
+                          print("Completed: " + pin);
+                          verifyOtp(pin);
+                        },
+                      )),
                     ],
                   ),
                 ),

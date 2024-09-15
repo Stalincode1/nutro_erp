@@ -1,3 +1,4 @@
+import 'package:client/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:client/model/token_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,20 @@ class SharedService {
       SharedService.logggedOutWithOutContext();
     }
     return token != null ? TokenModel.fromJson(token) : null;
+  }
+
+  static Future<UserModel?> getUserData() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    String? userJson = storage.getString('user');
+    if (userJson != null) {
+      return UserModel.fromJson(userJson);
+    }
+    return null;
+  }
+
+  static Future<void> setUserData(UserModel user) async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    storage.setString('user', user.toJson());
   }
 
   static Future<void> logggedOutWithOutContext() async {

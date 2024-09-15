@@ -1,14 +1,14 @@
+import 'package:client/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:client/routing/routes.dart';
-import 'package:client/screens/user/user_orders_screen.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-  String defaultRoute = UserDashboard.routeName;
+  MyApp({super.key});
+  String defaultRoute = SplashScreen.routeName;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
