@@ -1,29 +1,24 @@
-import 'dart:ffi';
-
-import 'package:client/constants/app_colors.dart';
-import 'package:client/screens/user/product_process_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class CustomListTile extends StatefulWidget {
-  const CustomListTile({super.key});
+import '../../constants/app_colors.dart';
+import '../user/product_process_screen.dart';
+
+class CustomGridTile extends StatefulWidget {
+  const CustomGridTile({Key? key}) : super(key: key);
 
   @override
-  State<CustomListTile> createState() => _CustomListTileState();
+  State<CustomGridTile> createState() => _CustomGridTileState();
 }
 
-class _CustomListTileState extends State<CustomListTile> {
-
-  bool _wishlist_button_pressed = false;
+class _CustomGridTileState extends State<CustomGridTile> {
+  bool _wishlistButtonPressed = false;
 
   @override
   Widget build(BuildContext context) {
-
-    final screenWidth =MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return GestureDetector(
-
       onTap: (){
         print('Tile Clicked');
         Navigator.pushNamed(context, ProductProcessScreen.routeName);
@@ -31,7 +26,6 @@ class _CustomListTileState extends State<CustomListTile> {
       child: SizedBox(
         width: screenWidth*0.33,
         child: Card(
-          color: Colors.white,
           elevation: 5,
           shape:BeveledRectangleBorder(
             side: BorderSide(
@@ -51,7 +45,7 @@ class _CustomListTileState extends State<CustomListTile> {
                     child: Container(
                       padding: const EdgeInsets.all(5),
                       child: AspectRatio(
-                        aspectRatio: 3/2.75,
+                        aspectRatio: 3/2,
                         child: Image.network(
                           'https://images.immediate.co.uk/production/volatile/sites/30/2024/03/Nuts-2def52f.jpg?quality=90&resize=440,400',
                           errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
@@ -80,7 +74,7 @@ class _CustomListTileState extends State<CustomListTile> {
                       'Nuts, Dates, Pistachio, Cashew',
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 15
+                          fontSize: 15
                       ),
                     ),
                   ) ,
@@ -92,7 +86,7 @@ class _CustomListTileState extends State<CustomListTile> {
                       '₹500',
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: Colors.green
+                          color: Colors.green
                       ),
                     ) ,),
                 ],
@@ -101,14 +95,14 @@ class _CustomListTileState extends State<CustomListTile> {
                 top: -5,
                 right:-5,
                 child: IconButton(
-                  color: _wishlist_button_pressed ? AppColors.favoriteColor : Colors.black45,
+                  color: _wishlistButtonPressed ? AppColors.favoriteColor : Colors.black45,
                   onPressed: () {
                     setState(() {
-                      _wishlist_button_pressed = !_wishlist_button_pressed;
+                      _wishlistButtonPressed = !_wishlistButtonPressed;
                     });
                   },
                   icon: Icon(
-                    _wishlist_button_pressed ? Icons.favorite : Icons.favorite_border,
+                    _wishlistButtonPressed ? Icons.favorite : Icons.favorite_border,
                     size: 20,
                   ),
                 ),
