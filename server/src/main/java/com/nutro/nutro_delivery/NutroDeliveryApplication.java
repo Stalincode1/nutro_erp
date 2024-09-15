@@ -10,6 +10,7 @@ public class NutroDeliveryApplication {
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(NutroDeliveryApplication.class)
 				.initializers(new CustomApplicationStartInitialization()).run(args);
+
 		System.out.println("Nutro Delivery");
 	}
 
