@@ -6,6 +6,8 @@ import 'package:client/screens/user/user_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:client/routing/routes.dart';
 
+import 'screens/user/login_screen.dart';
+
 void main() {
   runApp(MyApp());
 }

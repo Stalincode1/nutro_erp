@@ -119,6 +119,22 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 SizedBox(height: 15),
                 TextFormField(
                   decoration: InputDecoration(
+                    labelText: 'Price',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  onSaved: (value) {
+                    _quantity = int.tryParse(value ?? '');
+                  },
+                  validator: (value) {
+                    return value?.isEmpty ?? true ? 'Please enter price' : null;
+                  },
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
                     labelText: 'Current Stock',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
