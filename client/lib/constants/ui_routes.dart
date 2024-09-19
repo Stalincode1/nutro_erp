@@ -7,10 +7,12 @@ class UiScreenRoutes {
   static const String exploreScreen = "/explore-screen";
   static const String wishlistScreen = "/wishlist-screen";
   static const String userOrderScreen = "/user-order-screen";
-  static const String homeScreen="/home-screen";
+  static const String homeScreen = "/home-screen";
   static const String productProcessScreen = "/product-process-screen";
   static const String userOrderPreviewScreen = "/user-order-preview-screen";
   static const String categories = "/categories-screen";
+
+  static const String cart = "/cart";
 
 //Admin
   static const String adminDashbord = "/admin-dashboard";
