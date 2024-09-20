@@ -1,4 +1,5 @@
 import 'package:client/screens/admin/dashboard_page.dart';
+import 'package:client/screens/admin/home_page.dart';
 import 'package:client/screens/splash_screen.dart';
 import 'package:client/screens/user/add_to_cart.dart';
 import 'package:client/screens/user/explore_screen.dart';
@@ -34,5 +35,6 @@ final Map<String, WidgetBuilder> routes = {
   AddToCartScreen.routeName: (context) => const AddToCartScreen(),
 
   //Admin
+  AdminHomePage.routeName: (context) => AdminHomePage(),
   DashboardPage.routeName: (context) => DashboardPage(),
 };

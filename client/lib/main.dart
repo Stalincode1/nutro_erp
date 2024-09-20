@@ -14,7 +14,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
-  String defaultRoute = SplashScreen.routeName;
+  String defaultRoute = AdminHomePage.routeName;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
