@@ -1,3 +1,4 @@
+import 'package:client/screens/admin/product_list.dart';
 import 'package:flutter/material.dart';
 import 'dashboard_page.dart';
 import 'orders_page.dart';
@@ -15,7 +16,7 @@ class _HomePageState extends State<AdminHomePage> {
 
   // List of pages to navigate to
   static List<Widget> _pages = <Widget>[
-    HomePageContent(),
+    ProductListPage(),
     DashboardPage(),
     OrdersPage(),
   ];
@@ -59,41 +60,6 @@ class _HomePageState extends State<AdminHomePage> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
         ),
-        floatingActionButton: _selectedIndex == 0
-            ? FloatingActionButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AddProductDialog();
-                    },
-                  );
-                },
-                child: Icon(Icons.add),
-              )
-            : null, // Show FAB only on Home Page
-      ),
-    );
-  }
-}
-
-// Separate Home Page content for the first tab
-class HomePageContent extends StatefulWidget {
-  const HomePageContent({super.key});
-
-  @override
-  State<HomePageContent> createState() => _HomePageContent();
-}
-
-class _HomePageContent extends State<HomePageContent> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-      ),
-      body: Center(
-        child: Text('Home Page Content'),
       ),
     );
   }

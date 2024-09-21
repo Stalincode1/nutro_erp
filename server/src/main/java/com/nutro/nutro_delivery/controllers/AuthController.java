@@ -46,6 +46,8 @@ public class AuthController {
         responseData.put("otp", otp);
         responseData.put("phoneNumber", phoneNumber);
 
+        System.out.println("the responce model is the :::::::::    " + responseData.toString());
+
         ServerResponseModel res = new ServerResponseModel();
         res.setStatus(HttpStatus.OK.value());
         res.setMessage("Successfully OTP Sent");
@@ -64,7 +66,7 @@ public class AuthController {
             User user = userService.getUserByPhoneNumber(phoneNumber);
 
             Map<String, Object> response = new HashMap<>();
-            long expiresIn = 3600 * 24 * 7;
+            long expiresIn = 3600 * 24 * 7 * 1000L;
             TokenModel tokenModel = new TokenModel(jwtToken, expiresIn, UUID.randomUUID().toString());
 
             response.put("token", tokenModel);

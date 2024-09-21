@@ -18,7 +18,7 @@ import java.util.Collection;
 @Component
 public class JwtUtil {
     private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final long EXPIRATION_TIME = 3600 * 24 * 7;
+    private final long EXPIRATION_TIME = 3600 * 24 * 7 * 1000L;
 
     public String generateToken(String phoneNumber) {
         return Jwts.builder()
