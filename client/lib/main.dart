@@ -1,12 +1,7 @@
 import 'package:client/screens/splash_screen.dart';
-import 'package:client/screens/admin/dashboard_page.dart';
-import 'package:client/screens/admin/home_page.dart';
-import 'package:client/screens/user/home_screen.dart';
-import 'package:client/screens/user/user_dashboard.dart';
+
 import 'package:flutter/material.dart';
 import 'package:client/routing/routes.dart';
-
-import 'screens/user/login_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +22,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: defaultRoute,
       routes: routes,
-      // home: HomePage(),
     );
   }
 }

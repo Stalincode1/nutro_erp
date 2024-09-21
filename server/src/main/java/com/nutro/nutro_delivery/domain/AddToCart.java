@@ -10,19 +10,19 @@ public class AddToCart extends AuditEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "userid", nullable = false)
+    @Column(name = "userid")
     private Long userId;
 
-    @Column(name = "productid", nullable = false)
+    @Column(name = "productid")
     private Long productId;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "isdeleted", nullable = false)
+    @Column(name = "isdeleted")
     private Boolean isDeleted = false;
 
-    @Column(name = "ischeckout", nullable = false)
+    @Column(name = "ischeckout")
     private Boolean isCheckout = false;
 
     public Long getId() {
