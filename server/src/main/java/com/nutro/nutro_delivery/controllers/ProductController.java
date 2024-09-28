@@ -1,6 +1,5 @@
 package com.nutro.nutro_delivery.controllers;
 
-
 import com.nutro.nutro_delivery.domain.Product;
 import com.nutro.nutro_delivery.domain.CategoryEnum;
 import com.nutro.nutro_delivery.dto.request.ProductRequestDto;
@@ -20,7 +19,8 @@ public class ProductController {
     private ProductService productService;
 
     // Create a new product
-    @PostMapping
+    @PostMapping("/add-products")
+    @ResponseBody
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto) {
         return productService.createProduct(productRequestDto);
     }
@@ -49,4 +49,3 @@ public class ProductController {
         return productService.getProductById(id);
     }
 }
-

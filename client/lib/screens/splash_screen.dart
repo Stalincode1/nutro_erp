@@ -1,8 +1,10 @@
 import 'package:client/constants/ui_routes.dart';
 import 'package:client/model/user_model.dart';
 import 'package:client/screens/admin/dashboard_page.dart';
+import 'package:client/screens/user/home_screen.dart';
 import 'package:client/screens/user/login_screen.dart';
 import 'package:client/screens/user/user_dashboard.dart';
+import 'package:client/screens/user/user_orders_screen.dart';
 import 'package:client/service/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,9 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
       int? isAdmin = int.tryParse(user.isAdmin ?? '0') ?? 0;
 
       if (isAdmin == 0) {
-        Navigator.pushReplacementNamed(context, UserDashboard.routeName);
+        Navigator.pushReplacementNamed(context, HomePageScreen.routeName);
       } else {
-        Navigator.pushReplacementNamed(context, DashboardPage.routeName);
+        Navigator.pushReplacementNamed(context, UserOrderScreen.routeName);
       }
     } else {
       Navigator.pushReplacementNamed(context, LoginScreen.routeName);

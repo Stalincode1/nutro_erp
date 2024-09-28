@@ -1,9 +1,14 @@
 import 'dart:io';
+import 'package:client/screens/admin/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../service/admin/admin_service.dart';
+
 class AddProductDialog extends StatefulWidget {
   @override
+  final Function onProductAdded;
+  AddProductDialog({required this.onProductAdded});
   _AddProductDialogState createState() => _AddProductDialogState();
 }
 
@@ -12,10 +17,13 @@ class _AddProductDialogState extends State<AddProductDialog> {
   final _picker = ImagePicker();
   List<XFile?> _images = [];
 
-  String? _productName;
-  int? _quantity;
-  String? _description;
-  int? _currentStock;
+  TextEditingController _productName = TextEditingController();
+  TextEditingController _quantity = TextEditingController();
+  TextEditingController _price = TextEditingController();
+  TextEditingController _description = TextEditingController();
+  TextEditingController _currentStock = TextEditingController();
+
+  AdminService helper = new AdminService();
 
   Future<void> _pickImages() async {
     if (_images.length >= 3) return;
@@ -34,10 +42,21 @@ class _AddProductDialogState extends State<AddProductDialog> {
     });
   }
 
-  void _saveProduct() {
+  void _saveProduct() async {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState?.save();
-      // Handle product saving logic here
+
+      double price = int.tryParse(_price.text)!.toDouble();
+      int? quantity = int.tryParse(_quantity.text);
+      int? currentstock = int.tryParse(_currentStock.text);
+
+      // Save the product using AdminService
+      await helper.addproduct(_productName.text, _description.text, "FRUITS",
+          quantity!, price, currentstock!);
+
+      // Notify parent to refresh product list
+      widget.onProductAdded();
+
       Navigator.of(context).pop(); // Close the dialog
     }
   }
@@ -72,9 +91,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onSaved: (value) {
-                    _productName = value;
-                  },
+                  controller: _productName,
                   validator: (value) {
                     return value?.isEmpty ?? true
                         ? 'Please enter product name'
@@ -90,9 +107,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                     ),
                   ),
                   keyboardType: TextInputType.number,
-                  onSaved: (value) {
-                    _quantity = int.tryParse(value ?? '');
-                  },
+                  controller: _quantity,
                   validator: (value) {
                     return value?.isEmpty ?? true
                         ? 'Please enter quantity'
@@ -107,13 +122,25 @@ class _AddProductDialogState extends State<AddProductDialog> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onSaved: (value) {
-                    _description = value;
-                  },
+                  controller: _description,
                   validator: (value) {
                     return value?.isEmpty ?? true
                         ? 'Please enter description'
                         : null;
+                  },
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Price',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  controller: _price,
+                  validator: (value) {
+                    return value?.isEmpty ?? true ? 'Please enter price' : null;
                   },
                 ),
                 SizedBox(height: 15),
@@ -125,9 +152,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                     ),
                   ),
                   keyboardType: TextInputType.number,
-                  onSaved: (value) {
-                    _currentStock = int.tryParse(value ?? '');
-                  },
+                  controller: _currentStock,
                   validator: (value) {
                     return value?.isEmpty ?? true
                         ? 'Please enter current stock'
