@@ -1,9 +1,10 @@
+import AppRoutes from "./routes";
+
 function App() {
-  return (
-    <div className="App">
-      <h1>Berry Days </h1>
-    </div>
-  );
+  document.title = "Berry Days";
+  return <AppRoutes />;
 }
 
 export default App;
+
+
