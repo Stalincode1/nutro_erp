@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaShoppingCart, FaUser, FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation(); // Get the current location
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -11,7 +12,7 @@ const NavBar = () => {
 
   return (
     <header className="bg-white shadow-lg">
-      <div className="container mx-auto flex items-center justify-between h-24 px-4 lg:px-6 xl:px-8">
+      <div className="container mx-auto flex items-center justify-between h-20 py-4 px-4 lg:px-6 xl:px-8">
         {/* Logo Section */}
         <div className="flex-shrink-0">
           <Link to="/">
@@ -52,32 +53,20 @@ const NavBar = () => {
       </div>
 
       {/* Menus (Desktop, Aligned Left) */}
-      <nav className="hidden md:flex justify-start space-x-8 font-semibold text-base lg:text-lg px-4 py-2 lg:px-6 xl:px-8">
-        <Link to="/" className="hover:text-gray-600">
-          Home
-        </Link>
-        <Link to="/about" className="hover:text-gray-600">
-          About
-        </Link>
-        <Link to="/contact" className="hover:text-gray-600">
-          Contact
-        </Link>
+      <nav className="hidden md:flex justify-start space-x-8 text-base lg:text-sm px-4 py-2 lg:px-6 xl:px-8">
+        <NavLink to="/" label="Home" currentPath={location.pathname} />
+        <NavLink to="/products-page" label="Products" currentPath={location.pathname} />
+        <NavLink to="/contact" label="Contact" currentPath={location.pathname} />
       </nav>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white shadow-lg">
-          <nav className="space-y-2 px-4 py-4">
-            <Link to="/" className="block hover:bg-gray-100 py-2">
-              Home
-            </Link>
-            <Link to="/about" className="block hover:bg-gray-100 py-2">
-              About
-            </Link>
-            <Link to="/contact" className="block hover:bg-gray-100 py-2">
-              Contact
-            </Link>
-            
+          <nav className="flex flex-col space-y-2 px-4 py-4">
+            <NavLink to="/" label="Home" currentPath={location.pathname} />
+            <NavLink to="/products-page" label="Products" currentPath={location.pathname} />
+            <NavLink to="/contact" label="Contact" currentPath={location.pathname} />
+
             {/* Search Bar (Mobile) */}
             <div className="mt-4">
               <div className="relative">
@@ -101,6 +90,24 @@ const NavBar = () => {
         </div>
       )}
     </header>
+  );
+};
+
+// Custom NavLink Component
+const NavLink = ({ to, label, currentPath }) => {
+  const isActive = currentPath === to; // Determine if the link is active
+
+  return (
+    <Link to={to} className="relative group">
+      <span className={`hover:text-gray-600 ${isActive ? 'text-gray-600' : ''}`}>
+        {label}
+      </span>
+      <span
+        className={`absolute left-0 -bottom-1 h-[2px] w-full bg-gray-600 transition-transform duration-300 ${
+          isActive ? 'scale-x-100' : 'scale-x-0'
+        } group-hover:scale-x-100`}
+      ></span>
+    </Link>
   );
 };
 
