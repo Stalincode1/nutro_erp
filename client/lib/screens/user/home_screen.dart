@@ -22,8 +22,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   Widget exploreAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: const Text('Explore'),
       actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.search),
+        ),
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.favorite_border),
@@ -60,6 +65,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   Widget userDashboardAppBar() {
     return AppBar(
+      surfaceTintColor: Colors.white10,
+      backgroundColor: Colors.white10,
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
         statusBarColor: Color.fromARGB(230, 194, 191, 191),
@@ -67,19 +74,24 @@ class _HomePageScreenState extends State<HomePageScreen> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(25)),
-            child: const Icon(
-              Icons.ac_unit,
-              size: 24,
-            ),
-          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //       border: Border.all(color: Colors.black),
+          //       borderRadius: BorderRadius.circular(25)),
+          //   child: const Icon(
+          //     Icons.ac_unit,
+          //     size: 24,
+          //   ),
+          // ),
           const SizedBox(
             width: 5,
           ),
-          const Text('client')
+          const Text(
+            'BerryDays',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          )
         ],
       ),
     );
