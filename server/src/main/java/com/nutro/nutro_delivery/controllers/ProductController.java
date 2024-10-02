@@ -18,7 +18,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    // Create a new product
     @PostMapping("/add-products")
     @ResponseBody
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto) {
@@ -31,7 +30,6 @@ public class ProductController {
         return productService.searchProducts(keyword);
     }
 
-    // Get all available products
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();

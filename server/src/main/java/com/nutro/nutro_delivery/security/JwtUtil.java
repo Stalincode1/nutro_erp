@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.nimbusds.jose.util.StandardCharset;
 
-import java.util.Date;
-import java.util.UUID;
-import java.util.Collections;
-import java.util.Collection;
+import java.util.*;
 
 @Component
 public class JwtUtil {
@@ -33,6 +30,19 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SECRET_KEY)
                 .setId(UUID.randomUUID().toString())
+                .compact();
+    }
+
+    public String generateGuestToken() {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", "guest");
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject("guest")
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10-hour validity
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
                 .compact();
     }
 
