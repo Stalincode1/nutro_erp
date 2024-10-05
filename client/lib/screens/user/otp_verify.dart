@@ -3,6 +3,7 @@ import 'package:client/model/common_response_model.dart';
 import 'package:client/model/token_model.dart';
 import 'package:client/model/user_model.dart';
 import 'package:client/screens/admin/dashboard_page.dart';
+import 'package:client/screens/admin/home_page.dart';
 import 'package:client/screens/user/home_screen.dart';
 import 'package:client/service/oauth_login_service.dart';
 import 'package:client/service/shared_service.dart';
@@ -50,7 +51,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
         if (isAdmin == 0) {
           Navigator.pushReplacementNamed(context, HomePageScreen.routeName);
         } else {
-          Navigator.pushReplacementNamed(context, DashboardPage.routeName);
+          Navigator.pushReplacementNamed(context, AdminHomePage.routeName);
         }
       } else {
         debugPrint("OTP verification failed: ${response?.message}");
