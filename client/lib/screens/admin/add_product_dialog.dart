@@ -51,13 +51,13 @@ class _AddProductDialogState extends State<AddProductDialog> {
       int? currentstock = int.tryParse(_currentStock.text);
 
       // Save the product using AdminService
-      await helper.addproduct(_productName.text, _description.text, "FRUITS",
+      await helper.addProduct(_productName.text, _description.text, "FRUITS",
           quantity!, price, currentstock!);
 
       // Notify parent to refresh product list
       widget.onProductAdded();
 
-      Navigator.of(context).pop(); // Close the dialog
+      Navigator.of(context).pop();
     }
   }
 

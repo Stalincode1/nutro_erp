@@ -34,13 +34,13 @@ class TokenModel {
     final result = <String, dynamic>{};
 
     if (accessToken != null) {
-      result.addAll({'access_token': accessToken});
+      result.addAll({'accessToken': accessToken});
     }
     if (tokenType != null) {
-      result.addAll({'token_type': tokenType});
+      result.addAll({'tokenType': tokenType});
     }
     if (expiresIn != null) {
-      result.addAll({'expires_in': expiresIn});
+      result.addAll({'expiresIn': expiresIn});
     }
     if (scope != null) {
       result.addAll({'scope': scope});
@@ -54,9 +54,9 @@ class TokenModel {
 
   factory TokenModel.fromMap(Map<String, dynamic> map) {
     return TokenModel(
-      accessToken: map['access_token'],
-      tokenType: map['token_type'],
-      expiresIn: map['expires_in'],
+      accessToken: map['accessToken'],
+      tokenType: map['tokenType'],
+      expiresIn: map['expiresIn'],
       scope: map['scope'],
       jti: map['jti'],
     );

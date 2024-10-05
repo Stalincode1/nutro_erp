@@ -156,8 +156,13 @@ class ApiBaseHelper {
     //  var token = await SharedService.getToken();
     TokenModel? token = await SharedService.getToken();
     // Map<String, String> requestHeader = {HttpHeaders.authorizationHeader:'Bearer ${token!.accessToken!}'};
+    print("this is the token ${token!.accessToken}");
+    String tokens =
+        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5Njg4MzM2MTEwIiwiaWF0IjoxNzI4MTI2OTIzLCJleHAiOjE3MjgxMjc1MjgsImp0aSI6IjA2MWU1ODBhLTdlY2YtNDYxOS1hMGJmLWZjYmRjZmZlMTkxZSJ9._zaBVEGGkOBqdgnGjG2wxep8X8mSt-qkKjWM2X7ydl4";
+
+    print("this is the tokens ${tokens}");
     Map<String, String> requestHeader = {
-      HttpHeaders.authorizationHeader: 'Bearer ${token!.accessToken!}',
+      HttpHeaders.authorizationHeader: 'Bearer ${tokens}',
       'Content-Type': 'application/json'
     };
     //   Map<String, String> requestHeader = {};

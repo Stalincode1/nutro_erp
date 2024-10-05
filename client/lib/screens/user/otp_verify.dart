@@ -37,9 +37,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
     try {
       CommonResponseModel? response =
           await _oAuthService.verifyOtp(phoneNo, userotp);
-
       if (response != null && response.error == false) {
-        // Assuming the response contains the token and user data
         Map<String, dynamic> responseData =
             response.data as Map<String, dynamic>;
         TokenModel token = TokenModel.fromMap(responseData['token']);

@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   width: screenWidth,
                   height: screenHeight * 0.4, // 40% of screen height
-                  color: Color(0xffF5CB58),
+                  color: const Color(0xffF5CB58),
                   child: Center(
                     child: Text(
                       "Login",
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Container(
                   width: screenWidth,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
@@ -84,13 +84,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             "Welcome",
                             style: GoogleFonts.leagueSpartan(fontSize: 18),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                             style: GoogleFonts.leagueSpartan(fontSize: 14),
                           ),
-                          SizedBox(height: 20),
-                          Text("Enter Mobile No"),
+                          const SizedBox(height: 20),
+                          const Text("Enter Mobile No"),
                           TextFormField(
                             controller: mobileNoController,
                             keyboardType: TextInputType.phone,
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             //       horizontal: 10, vertical: 15),
                             // ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Center(
                             child: ElevatedButton(
                               onPressed: () {
@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   login();
                                 }
                               },
-                              child: Text("Login"),
+                              child: const Text("Login"),
                             ),
                           ),
                         ],
