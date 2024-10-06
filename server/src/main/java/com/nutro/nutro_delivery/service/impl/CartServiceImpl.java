@@ -12,6 +12,8 @@ import com.nutro.nutro_delivery.repository.CartRepository;
 import com.nutro.nutro_delivery.repository.ProductRepository;
 import com.nutro.nutro_delivery.repository.QuantityRepository;
 import com.nutro.nutro_delivery.service.ICartService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,25 +28,21 @@ public class CartServiceImpl implements ICartService {
     @Autowired
     private ProductRepository productRepository;
 
-    public CartResponseDto getAllCartProduct(Long id) {
+    public List<CartResponseDto> getAllCartProduct(Long id) {
         List<AddToCart> cart = cartRepository.findByUserId(id);
-        CartResponseDto cartResponseDto = new CartResponseDto();
+        List<CartResponseDto> cartResponseDtoList = new ArrayList<>();
 
         for (AddToCart addToCart : cart) {
-            // Fetch product details
             Product product = productRepository.findById(addToCart.getProductId()).orElse(null);
 
             if (product == null) {
-                // Handle the case where the product is not found
-                continue; // or return some kind of error message
+                continue;
             }
 
-            // Fetch quantity details
             Quantity quantity = quantityRepository.findById(product.getQuantity().getId()).orElse(null);
 
             if (quantity == null) {
-                // Handle the case where the quantity is not found
-                continue; // or return some kind of error message
+                continue;
             }
 
             ProductResponseDto productResponseDto = new ProductResponseDto();
@@ -52,16 +50,20 @@ public class CartServiceImpl implements ICartService {
             productResponseDto.setName(product.getName());
             productResponseDto.setDescription(product.getDescription());
             productResponseDto.setCurrentStock(product.getCurrentStock());
+            productResponseDto.setCategory(product.getCategory());
             productResponseDto.setPrice(quantity.getPrice());
             productResponseDto.setImages(product.getImages());
 
+            CartResponseDto cartResponseDto = new CartResponseDto();
             cartResponseDto.setId(addToCart.getId());
             cartResponseDto.setIsCheckout(addToCart.getIsCheckout());
             cartResponseDto.setQuantity(addToCart.getQuantity());
             cartResponseDto.setProduct(productResponseDto);
+
+            cartResponseDtoList.add(cartResponseDto);
         }
 
-        return cartResponseDto;
+        return cartResponseDtoList;
     }
 
 }

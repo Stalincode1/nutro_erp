@@ -20,6 +20,7 @@ public class AddToCartController {
 
     @GetMapping("/get-all-products")
     public ResponseEntity<ServerResponseModel> getAllProducts() {
+        System.out.println("it Hist");
         ServerResponseModel res = new ServerResponseModel();
         res.setStatus(HttpStatus.OK.value());
         res.setMessage("Product Fetched Succefully");

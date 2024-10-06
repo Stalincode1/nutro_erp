@@ -1,11 +1,11 @@
 package com.nutro.nutro_delivery.dto.request;
 
-import com.nutro.nutro_delivery.domain.CategoryEnum;
+import com.nutro.nutro_delivery.domain.Category;
 
 public class ProductRequestDto {
     private String name;
     private String description;
-    private CategoryEnum category;
+    private Category category;
     private Integer quantity;
     private Double price;
     private Integer currentStock;
@@ -25,14 +25,6 @@ public class ProductRequestDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public CategoryEnum getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEnum category) {
-        this.category = category;
     }
 
     public Integer getQuantity() {
@@ -65,6 +57,14 @@ public class ProductRequestDto {
 
     public void setImages(String images) {
         this.images = images;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     // Getters and Setters

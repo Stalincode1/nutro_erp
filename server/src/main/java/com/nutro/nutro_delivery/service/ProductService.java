@@ -27,9 +27,9 @@ public class ProductService {
         Product product = new Product();
         product.setName(productRequestDto.getName());
         product.setDescription(productRequestDto.getDescription());
-        product.setCategory(productRequestDto.getCategory());
         product.setCurrentStock(productRequestDto.getCurrentStock());
         product.setImages(productRequestDto.getImages());
+        product.setCategory(productRequestDto.getCategory());
 
         // Handle Quantity entity
         Quantity quantity = new Quantity();
@@ -71,7 +71,7 @@ public class ProductService {
         responseDto.setId(product.getId());
         responseDto.setName(product.getName());
         responseDto.setDescription(product.getDescription());
-        responseDto.setCategory(product.getCategory().name());
+        responseDto.setCategory(product.getCategory());
         responseDto.setCurrentStock(product.getCurrentStock());
         responseDto.setPrice(product.getQuantity() != null ? product.getQuantity().getPrice() : null);
         responseDto.setImages(product.getImages());
