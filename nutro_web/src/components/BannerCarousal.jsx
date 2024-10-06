@@ -25,12 +25,14 @@ const BannerCarousel = ({ images }) => {
         {images.map((image, index) => (
           <div
             key={index}
-            className={`duration-700 ease-in-out ${index === currentSlide ? 'block' : 'hidden'}`}
+            className={`absolute inset-0 w-full h-full transition-transform duration-700 ease-in-out ${
+              index === currentSlide ? 'translate-x-0' : index === (currentSlide + 1) % images.length ? 'translate-x-full' : 'translate-x-[-100%]'
+            }`}
             data-carousel-item
           >
             <img
               src={image.src}
-              className="absolute inset-0 w-full h-full object-fill" // Changed to inset-0
+              className="w-full h-full object-fill" // Use object-cover to maintain aspect ratio
               alt={image.alt || `Slide ${index + 1}`}
             />
           </div>
