@@ -73,4 +73,10 @@ public class AddToCart extends AuditEntity {
         this.isCheckout = isCheckout;
     }
 
+    @Override
+    public String toString() {
+        return "AddToCart [id=" + id + ", userId=" + userId + ", productId=" + productId + ", quantity=" + quantity
+                + ", isDeleted=" + isDeleted + ", isCheckout=" + isCheckout + "]";
+    }
+
 }

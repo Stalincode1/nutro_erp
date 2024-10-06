@@ -24,7 +24,6 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -34,15 +33,17 @@ class _UserDashboardState extends State<UserDashboard> {
 
   bool _listViewLoaded = true;
 
-  Future<void> intializeListView ()async{
+  bool _searchBarEnabled = false;
+
+  Future<void> intializeListView() async {
     await Future.delayed(const Duration(seconds: 5));
     setState(() {
-      _listViewLoaded=false;
+      _listViewLoaded = false;
     });
   }
+
   @override
   Widget build(BuildContext context) {
-
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -79,13 +80,13 @@ class _UserDashboardState extends State<UserDashboard> {
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.grey[300],
-              ),
-              width: screenWidth*0.90,
-              height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.grey[300],
             ),
+            width: screenWidth * 0.90,
+            height: 150,
+          ),
         ),
       );
     }
@@ -94,43 +95,75 @@ class _UserDashboardState extends State<UserDashboard> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              //Search Bar
-              Padding(
-                padding: EdgeInsets.only(top: 15, bottom: 15),
-                child: CustomSearchBar(),
-              ),
-
-              // Wishlist Button
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context,WishList.routeName);
-                },
-                icon: const Icon(Icons.favorite_border),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5, right: 10, left: 10),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RichText(
+                    textScaler: TextScaler.linear(screenWidth * 0.0035),
+                    text: TextSpan(
+                        text: 'Welcome ',
+                        style: DefaultTextStyle.of(context).style,
+                        children: const <TextSpan>[
+                          TextSpan(
+                              text: 'User',
+                              style: TextStyle(fontWeight: FontWeight.bold))
+                        ])),
+                Spacer(),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _searchBarEnabled = !_searchBarEnabled;
+                    });
+                  },
+                  icon: Icon(Icons.search),
+                ),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, WishList.routeName);
+                  },
+                  icon: const Icon(Icons.favorite_border),
+                ),
+              ],
+            ),
           ),
         ),
+        _searchBarEnabled
+            ? Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    //Search Bar
+                    const Padding(
+                      padding: EdgeInsets.only(top: 5, bottom: 10),
+                      child: CustomSearchBar(),
+                    ),
+                    // Wishlist Button
+                  ],
+                ),
+              )
+            : Text(''),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border: Border(
+                  top: BorderSide(color: Colors.grey),
+                  left: BorderSide(color: Colors.grey),
+                  right: BorderSide(color: Colors.grey),
+                ),
                 image: const DecorationImage(
                     opacity: 0.35,
                     image: AssetImage(
                       'assets/images/back_ground.png',
                     ),
                     fit: BoxFit.cover),
-                borderRadius:const BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30))),
             child: ClipRRect(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30)
-              ),
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               child: SingleChildScrollView(
                 child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -138,11 +171,9 @@ class _UserDashboardState extends State<UserDashboard> {
                     children: [
                       Container(
                         decoration: const BoxDecoration(
-                            borderRadius:BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(30),
-                                topLeft: Radius.circular(30)
-                            )
-                        ),
+                                topLeft: Radius.circular(30))),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -151,73 +182,124 @@ class _UserDashboardState extends State<UserDashboard> {
                             ),
                             //Carousel Slider
                             !_listViewLoaded
-                                ?CarouselSlider(
-                                items: imglist
-                                    .map((item) => Container(
-                                  padding:
-                                  EdgeInsets.only(top: 10, bottom: 10),
-                                  margin: EdgeInsets.symmetric(horizontal: 8),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(
-                                              0.3), // Shadow color
-                                          offset:
-                                          Offset(1, 2), // Shadow offset
-                                          blurRadius: 8, // Shadow blur radius
-                                          spreadRadius:
-                                          2, // Shadow spread radius
-                                        ),
-                                      ],
-                                    ),
-                                    child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(25),
-                                        child: Image.network(item)),
-                                  ),
-                                ))
-                                    .toList(),
-                                options: CarouselOptions(
-                                    initialPage: 0,
-                                    aspectRatio: 16 / 9,
-                                    viewportFraction: 1,
-                                    autoPlay: true,
-                                    autoPlayAnimationDuration:
-                                    const Duration(seconds: 2),
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        _currentIndex = index;
-                                      });
-                                    }))
-                                :CarouselShimmerEffectForLoading(),
+                                ? CarouselSlider(
+                                    items: imglist
+                                        .map((item) => Container(
+                                              // padding: EdgeInsets.only(
+                                              //     top: 10, bottom: 10),
+                                              // margin: EdgeInsets.symmetric(
+                                              //     horizontal: 8),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                  border: Border.all(
+                                                    color: Colors.grey,
+                                                  ),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(
+                                                              0.3), // Shadow color
+                                                      offset: Offset(1,
+                                                          2), // Shadow offset
+                                                      blurRadius:
+                                                          8, // Shadow blur radius
+                                                      spreadRadius:
+                                                          2, // Shadow spread radius
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25),
+                                                    child: Image.network(item)),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    options: CarouselOptions(
+                                        initialPage: 0,
+                                        aspectRatio: 16 / 9,
+                                        viewportFraction: 1,
+                                        autoPlay: true,
+                                        autoPlayAnimationDuration:
+                                            const Duration(seconds: 2),
+                                        onPageChanged: (index, reason) {
+                                          setState(() {
+                                            _currentIndex = index;
+                                          });
+                                        }))
+                                : CarouselShimmerEffectForLoading(),
 
+                            // Category List View
+
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              height: screenHeight * 0.14 + 15,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: imglist.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: screenWidth * 0.20,
+                                            height: screenHeight * 0.10,
+                                            // width: screenWidth,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.amber,
+                                                    width: 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
+                                            child: ClipOval(
+                                              child: Image.network(
+                                                imglist[index],
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            'Category',
+                                            style: TextStyle(
+                                                fontSize: screenWidth * 0.0335,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                            ),
 
                             //Today Deals ListView
-                            const CustomHorizaontalDivider(title: 'Today Deals'),
+                            const CustomHorizaontalDivider(
+                                title: 'Today Deals'),
                             !_listViewLoaded
                                 ? Container(
-                                height: screenHeight * 0.20,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (BuildContext context,int index){
-                                      return CustomListTile();
-                                    })
-                            )
+                                    height: screenHeight * 0.20,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return CustomListTile();
+                                        }))
                                 : Container(
-                                height: screenHeight * 0.20,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (BuildContext context,int index){
-                                      return ListViewShimmerEffectForLoading();
-                                    })
-                            ),
+                                    height: screenHeight * 0.20,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ListViewShimmerEffectForLoading();
+                                        })),
 
                             // Advertisement Banner
                             Center(
@@ -225,20 +307,25 @@ class _UserDashboardState extends State<UserDashboard> {
                                   padding: EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.amber,width: 2.5),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
+                                        border: Border.all(
+                                            color: Colors.amber, width: 1),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.circular(20),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.amber),
+                                            border:
+                                                Border.all(color: Colors.amber),
                                           ),
-                                          child: Image.
-                                          network('https://nuttynuts.com.au/wp-content/uploads/2021/10/Rug-banner-2.png',
-                                            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                          child: Image.network(
+                                            'https://nuttynuts.com.au/wp-content/uploads/2021/10/Rug-banner-2.png',
+                                            errorBuilder: (BuildContext context,
+                                                Object error,
+                                                StackTrace? stackTrace) {
                                               return const Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Icon(
                                                     Icons.error,
@@ -247,72 +334,83 @@ class _UserDashboardState extends State<UserDashboard> {
                                                   ),
                                                 ],
                                               );
-                                            },),
+                                            },
+                                          ),
                                         )),
                                   )),
                             ),
 
                             //New Products ListView
-                            const CustomHorizaontalDivider(title: 'New Products'),
+                            const CustomHorizaontalDivider(
+                                title: 'New Products'),
                             !_listViewLoaded
                                 ? Container(
-                                height: screenHeight * 0.20,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (BuildContext context,int index){
-                                      return CustomListTile();
-                                    })
-                            )
+                                    height: screenHeight * 0.20,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return CustomListTile();
+                                        }))
                                 : Container(
-                                height: screenHeight * 0.20,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (BuildContext context,int index){
-                                      return ListViewShimmerEffectForLoading();
-                                    })
-                            ),
+                                    height: screenHeight * 0.20,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ListViewShimmerEffectForLoading();
+                                        })),
 
                             //Mostly Liked Products GridView
-                            const CustomHorizaontalDivider(title: 'Mostly liked'),
+                            const CustomHorizaontalDivider(
+                                title: 'Mostly liked'),
                             _listViewLoaded
-                                ?Container(
-                              width: screenWidth*0.80,
-                              height: screenHeight*0.40,
-                              padding: const EdgeInsets.only(
-                                  top: 6, bottom: 10, left: 10, right: 10),
-                              child: GridView.builder(
-                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 8.0,
-                                  mainAxisSpacing: 10.0,
-                                  // childAspectRatio: 0.7,
-                                ),
-                                itemCount: 5,
-                                itemBuilder: (context, index) {
-                                  return ListViewShimmerEffectForLoading();
-                                },
-                              ),
-                            )
-                                :Container(
-                              width: screenWidth*0.80,
-                              height: screenHeight*0.38,
-                              padding: const EdgeInsets.only(
-                                  top: 6, bottom: 10, left: 10, right: 10),
-                              child: GridView.builder(
-                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 8.0,
-                                  mainAxisSpacing: 10.0,
-                                  // childAspectRatio: 0.7,
-                                ),
-                                itemCount: 5,
-                                itemBuilder: (context, index) {
-                                  return CustomGridTile();
-                                },
-                              ),
-                            ),
+                                ? Container(
+                                    width: screenWidth * 0.80,
+                                    height: screenHeight * 0.40,
+                                    padding: const EdgeInsets.only(
+                                        top: 6,
+                                        bottom: 10,
+                                        left: 10,
+                                        right: 10),
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 8.0,
+                                        mainAxisSpacing: 10.0,
+                                        // childAspectRatio: 0.7,
+                                      ),
+                                      itemCount: 5,
+                                      itemBuilder: (context, index) {
+                                        return ListViewShimmerEffectForLoading();
+                                      },
+                                    ),
+                                  )
+                                : Container(
+                                    width: screenWidth * 0.80,
+                                    height: screenHeight * 0.38,
+                                    padding: const EdgeInsets.only(
+                                        top: 6,
+                                        bottom: 10,
+                                        left: 10,
+                                        right: 10),
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 8.0,
+                                        mainAxisSpacing: 10.0,
+                                        // childAspectRatio: 0.7,
+                                      ),
+                                      itemCount: 5,
+                                      itemBuilder: (context, index) {
+                                        return CustomGridTile();
+                                      },
+                                    ),
+                                  ),
 
                             // Advertisement Banner
                             Center(
@@ -320,20 +418,25 @@ class _UserDashboardState extends State<UserDashboard> {
                                   padding: EdgeInsets.all(8),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.amber,width: 2.5),
-                                        borderRadius: BorderRadius.circular(20)
-                                    ),
+                                        border: Border.all(
+                                            color: Colors.amber, width: 2.5),
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.circular(20),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            border: Border.all(color: Colors.amber),
+                                            border:
+                                                Border.all(color: Colors.amber),
                                           ),
-                                          child: Image.
-                                          network('https://as2.ftcdn.net/v2/jpg/03/34/80/85/1000_F_334808581_4cH1mAsSMZJROxUB6jfpXiRBdZnXMKpG.jpg',
-                                            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                          child: Image.network(
+                                            'https://as2.ftcdn.net/v2/jpg/03/34/80/85/1000_F_334808581_4cH1mAsSMZJROxUB6jfpXiRBdZnXMKpG.jpg',
+                                            errorBuilder: (BuildContext context,
+                                                Object error,
+                                                StackTrace? stackTrace) {
                                               return const Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Icon(
                                                     Icons.error,
@@ -342,7 +445,8 @@ class _UserDashboardState extends State<UserDashboard> {
                                                   ),
                                                 ],
                                               );
-                                            },),
+                                            },
+                                          ),
                                         )),
                                   )),
                             ),
@@ -351,23 +455,23 @@ class _UserDashboardState extends State<UserDashboard> {
                             const CustomHorizaontalDivider(title: 'Wishlist'),
                             !_listViewLoaded
                                 ? Container(
-                                height: screenHeight * 0.20,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (BuildContext context,int index){
-                                      return CustomListTile();
-                                    })
-                            )
+                                    height: screenHeight * 0.20,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return CustomListTile();
+                                        }))
                                 : Container(
-                                height: screenHeight * 0.20,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemBuilder: (BuildContext context,int index){
-                                      return ListViewShimmerEffectForLoading();
-                                    })
-                            ),
+                                    height: screenHeight * 0.20,
+                                    child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ListViewShimmerEffectForLoading();
+                                        })),
                           ],
                         ),
                       )
@@ -379,8 +483,7 @@ class _UserDashboardState extends State<UserDashboard> {
       ],
     );
 
-        //Bottom Navigation Bar
-      // bottomNavigationBar: CustomBottomNavBar(),
-
+    //Bottom Navigation Bar
+    // bottomNavigationBar: CustomBottomNavBar(),
   }
 }

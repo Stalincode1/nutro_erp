@@ -1,10 +1,12 @@
 package com.nutro.nutro_delivery.dto.response;
 
+import com.nutro.nutro_delivery.domain.Category;
+
 public class ProductResponseDto {
     private Long id;
     private String name;
     private String description;
-    private String category;
+    private Category category;
     private Integer currentStock;
     private Double price;
     private String images;
@@ -33,14 +35,6 @@ public class ProductResponseDto {
         this.description = description;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public Integer getCurrentStock() {
         return currentStock;
     }
@@ -63,6 +57,14 @@ public class ProductResponseDto {
 
     public void setImages(String images) {
         this.images = images;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     // Getters and Setters
